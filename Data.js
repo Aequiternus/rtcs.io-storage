@@ -1,10 +1,13 @@
 
 module.exports = Data;
 
+var util = require("util");
 var events = require('events');
 var base64id = require('base64id');
 
 function Data(options) {
+    events.EventEmitter.call(this);
+
     this.options = {
         "guestName": "Guest ",
         "guestRooms": [],
@@ -26,7 +29,7 @@ function Data(options) {
     this.logTimeouts = {};
 }
 
-Data.prototype.__proto__ = events.EventEmitter.prototype;
+util.inherits(Data, events.EventEmitter);
 
 Data.prototype.close = function() {};
 
@@ -115,21 +118,4 @@ Data.prototype.getLog = function(roomId, time, callback) {
         }
     }
     process.nextTick(callback.bind(null, null, msglog));
-};
-
-Data.prototype.canJoin = function(socket, msg, callback) {
-    process.nextTick(callback.bind(null, null));
-};
-
-Data.prototype.canChat = function(socket, msg, callback) {
-    if (msg.message) {
-        var message = msg.message.trim();
-        if (message) {
-            process.nextTick(callback.bind(null, null));
-        }
-    }
-};
-
-Data.prototype.canPeer = function(socket, msg, callback) {
-    process.nextTick(callback.bind(null, null));
 };

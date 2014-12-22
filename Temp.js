@@ -1,10 +1,13 @@
 
 module.exports = Temp;
 
+var util = require("util");
 var events = require('events');
 var base64id = require('base64id');
 
 function hasProperties(obj) {
+    events.EventEmitter.call(this);
+
     for (var prop in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             return true;
@@ -32,7 +35,7 @@ function Temp(options) {
     this.tokens = {};
 }
 
-Temp.prototype.__proto__ = events.EventEmitter.prototype;
+util.inherits(Temp, events.EventEmitter);
 
 Temp.prototype.close = function() {};
 
