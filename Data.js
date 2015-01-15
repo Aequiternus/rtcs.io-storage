@@ -10,7 +10,7 @@ function Data(options) {
 
     this.options = {
         "guestName": "Guest ",
-        "guestRooms": [],
+        "guestRooms": ["help"],
         "historyLength": 100,
         "historyExpire": 86400000
     };
